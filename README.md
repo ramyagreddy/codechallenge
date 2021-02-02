@@ -6,16 +6,51 @@ Code Challenge is a web application built in Java using Spring Boot 2.4.2 framew
 * Java 8
 * Maven Version: 3.6.3
 * Eclipse IDE for Enterprise Java Developers (Version: 2020-12 (4.18.0))
-* Apache Tomcat v 9.0
+* Apache Tomcat v 9.0 (No need to install Tomcat if build and run is done using Spring Boot Maven plugin in eclipse)
+
+## How to build and run this project 
+You can build and run this project using Eclipse or Maven.
+
+Please note: Apache Tomcat server runs on 8081 port as per the configuration in application.properties file. If 8081 port is already in use, port number can be modified in application.properties file (under /src/main/resources)
+
+### Downloading source code
+Follow the below steps to download the source code from the git repository.
+1. You can clone the git repository from github using the below link
+
+	https://github.com/ramyagreddy/codechallenge.git
+	
+(or)
+
+2. Simply download the source code as .zip file using "Download Zip" option in Github to a localfolder, say - "codechallengerepo"
+
+### How to build and run using Eclipse
+***You can import this maven project into eclipse and run the project using Run configuration for Spring Boot. Spring Boot Maven plugin is used which has the ability to automatically deploy this web application in an embedded application server (Apache Tomcat). 
+Follow below steps to run the application on embedded Tomcat server provided by Spring boot.
+
+1. Import the project source code into eclipse using File -> Import -> Existing Maven projects
+2. Browse to select the root directory folder of the extracted source code folder ("codechallengerepo")
+3. Select pom.xml file to import the maven project. Select Finish to complete importing.  
+4. Make sure "Build Automatically" is selected under Project menu in eclipse.
+5. Select Project -> Clean to clean and build project ("Start a build immediately" option is auto-selected)
+6. Select project "codechallenge" in the "Clean" pop-up window and select clean. Project will be cleaned and build will be completed.
+7. Select project "codechallenge" and select Run -> Run Configurations
+8. Select Spring Boot App and click on "New launch configuration" icon to create a new run configuration.
+9. Select project "codechallenge" and main class "algorithm.core.CodeChallengeApplication". 
+10. Retain other configurations as default in "Spring boot" tab, "Arguements" tab.
+11. Make sure Java 1.8 JRE is selected in JRE tab.
+12. Add source folder "codechallenge" in Source tab.
+13. Apply changes and run. CodeChallenge web application should be started successfully and Tomcat server should be started on 8081 port.
+ 
+You can access the web API using below link
+
+	http://localhost:8081/romannumeral?query={integer}
+ where {integer} could be any integer between 0 to 3999
+ 
+ For ex: http://localhost:8081/romannumeral?query=9
 
 
-## How to build this project
-Spring Boot Maven plugin is used which has the ability to automatically deploy this web application in an embedded application server (Apache Tomcat). Apache Tomcat runs on 8081 port as per the configuration in application.properties file. If 8081 port is already in use, port number can be modified in application.properties file (under /src/main/resources)
-
-Following the below steps to download the source code from git repository on ###
-1. Download source code from git using link ######
-2. Extract source code to a folder location
-3. Open command prompt in this folder location where source code is downloaded
+### How to build and run using Maven
+1. Open command prompt in the folder where source code is downloaded (say folder "codechallengerepo").
 4. Enter below command to clean the project
 	`mvn clean`
 5. Enter below command to build this project to generate a deployable WAR file
@@ -25,13 +60,8 @@ Following the below steps to download the source code from git repository on ###
 6. Project should build successfully with no errors. 
 	Check the target/ folder which is .m2 repository on local. It should now contain the deployable WAR file **codechallenge-1.0.0.war**
 	
-## How to run this project	
-***You could either deploy this war file on Apache Tomcat installed on local server.
-(or)
-***You can import this maven project into eclipse and run the project using Run configuration for Spring Boot. Follow below steps to run the application on embedded Tomcat server provided by Spring boot.
-1.  
+***You could deploy this war file on Apache Tomcat installed on local server.
 
-#complete this --------------->
 
 ## Engineering Methodology
 
@@ -68,7 +98,7 @@ Each trip around the spiral traverses four basic quadrants:
 Junit for unit testing the service implementation for RomanNumeralsService (that includes a method to convert a number to a Roman numeral).
 Junit test cases are written to test all edge cases, valid and invalid inputs.
 
-Below steps are followed to perform TDD test,
+Below steps are followed to perform TDD test:
 1. Add a test.
 2. Run all tests and see if any new test fails.
 3. Write some code.
@@ -91,10 +121,10 @@ Packaging: War
 
 ## Dependency Attribution
 
-Uses below dependencies:
+This web application uses below dependencies:
 
 1. Junit for unit testing
-2. Tomcat server embedded 
+2. Tomcat server embedded in Sprint Boot
 3. Spring Boot Actuator for Metrics and monitoring support
 4. Spring Boot Maven Plugin for build, test, packaging code
 	
