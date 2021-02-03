@@ -27,17 +27,20 @@ Follow the below steps to download the source code from the git repository.
 Spring Boot Maven plugin included in this maven project is used which has the ability to automatically deploy this web application in an embedded application server (Apache Tomcat). 
 1. Open command prompt in the folder where source code is downloaded (say folder "codechallengerepo").
 2. Enter below command to clean the project; package and build a WAR file
-	`mvn clean package`
-	This command will also execute all the test classes running all test cases. Please note all the successfully run test cases.
+
+	mvn clean package
+This command will also execute all the test classes running all test cases. Please note all the successfully run test cases.
+
 3. Enter below command to deploy the war file on embedded Tomcat server. 
-	`java -jar target/codechallenge-1.0.0.war`
+	
+	java -jar target/codechallenge-1.0.0.war
 	
 You can access the web API using below link ({integer} could be any integer between 0 to 3999)
 
 	http://localhost:8081/romannumeral?query={integer}
 	
 ### How to build and run using Eclipse (Option 2 - Alternate to Option 1)
-***You can import this maven project into eclipse and run the project using Run configuration for Spring Boot. Spring Boot Maven plugin is used which has the ability to automatically deploy this web application in an embedded application server (Apache Tomcat). 
+***You can import this maven project into eclipse and run the project using Run configuration for Spring Boot. This option is helpful if you are developing or extending this project using Eclipse IDE.
 Follow below steps to run the application on embedded Tomcat server provided by Spring boot.
 
 1. Import the project source code into eclipse using File -> Import -> Existing Maven projects
@@ -78,7 +81,7 @@ Following steps define how to perform TDD test,
 
 ***Spiral Development methodology:
 Each trip around the spiral traverses four basic quadrants: 
-1. determine objectives, alternatives, and constraints of the iteration 
+1. Determine objectives, alternatives, and constraints of the iteration 
 2. Evaluate alternatives; Identify and resolve risks 
 3. Develop and verify deliverables from the iteration
 4. Plan the next iteration.
@@ -130,24 +133,27 @@ Actuator endpoints let you monitor and interact with your application. Spring Bo
 Spring Boot provides a metrics endpoint that can be used diagnostically to examine the metrics collected by an application. The endpoint is enabled but not exposed to web by default (though exposed to JVM).
 
 **How to access metrics**
-Navigating to http://localhost:8081/actuator/metrics displays a list of available meter names. You can drill down to view information about a particular meter by providing its name as a selector, e.g. http://localhost:8081/actuator/metrics/jvm.memory.max
+Navigating to below link displays a list of available meter names.
+
+	http://localhost:8081/actuator/metrics 
+You can drill down to view information about a particular meter by providing its name as a selector, e.g. http://localhost:8081/actuator/metrics/jvm.memory.max
 
 You can also add any number of tag=KEY:VALUE query parameters to the end of the URL to dimensionally drill down on a meter, e.g. /actuator/metrics/jvm.memory.max?tag=area:nonheap
 
 ** Supported Metrics**
 Spring Boot registers the following core metrics when applicable:
 
-*JVM metrics, report utilization of:
+* JVM metrics, report utilization of:
 	Various memory and buffer pools
 	Statistics related to garbage collection
 	Threads utilization
 	Number of classes loaded/unloaded
-*CPU metrics
-*File descriptor metrics
-Logback metrics: record the number of events logged to Logback at each level
-Uptime metrics: report a gauge for uptime and a fixed gauge representing the application’s absolute start time
-Tomcat metrics
-Spring Integration metrics
+* CPU metrics
+* File descriptor metrics
+* Logback metrics: record the number of events logged to Logback at each level
+* Uptime metrics: report a gauge for uptime and a fixed gauge representing the application’s absolute start time
+* Tomcat metrics
+* Spring Integration metrics
 
 
 ## Monitoring
@@ -158,9 +164,15 @@ Java Management Extensions (JMX) provide a standard mechanism to monitor and man
 Micrometer provides a hierarchical mapping to JMX, primarily as a cheap and portable way to view metrics locally. By default, metrics are exported to the metrics JMX domain. The domain to use can be provided using:
 management.metrics.export.jmx.domain=com.code.codechallenge
 
+You can view metrics on JMX console by following below steps:
+* Go to JAVA_HOME/bin and double-click to start jconsole
+* Select target/codechallenge-1.0.0.war in Local process and click on "Connect"
+
 **Monitoring over HTTP**
 Spring Boot Actuator auto-configures all enabled endpoints to be exposed over HTTP. The default convention is to use the id of the endpoint with a prefix of /actuator as the URL path. For example, health is exposed as /actuator/health.
-You can access health endpoint at http://localhost:8081/actuator/health which shows application health information.
+You can access health endpoint at below link which shows application health information.
+
+	http://localhost:8081/actuator/health 
 
 # Logging
 
