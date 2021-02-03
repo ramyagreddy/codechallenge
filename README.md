@@ -29,6 +29,7 @@ Spring Boot Maven plugin included in this maven project is used which has the ab
 2. Enter below command to clean the project; package and build a WAR file
 
 	mvn clean package
+
 This command will also execute all the test classes running all test cases. Please note all the successfully run test cases.
 
 3. Enter below command to deploy the war file on embedded Tomcat server. 
