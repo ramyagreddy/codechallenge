@@ -1,6 +1,6 @@
 #Code Challenge
 
-* Code Challenge is a web application built in Java using Spring Boot 2.4.2 framework.
+This is a web application built in Java using Spring Boot 2.4.2 framework.
 This application provides a web API that converts a number to a Roman numeral for all integers between 0 to 3999.
 
 ## System Requirements
