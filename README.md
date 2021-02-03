@@ -1,15 +1,14 @@
 #Code Challenge
 Code Challenge is a web application built in Java using Spring Boot 2.4.2 framework.
-
+This application provides a web API that converts a number to a Roman numeral for all integers between 0 to 3999.
 
 ## System Requirements
 * Java 8
 * Maven Version: 3.6.3
-* Eclipse IDE for Enterprise Java Developers (Version: 2020-12 (4.18.0))
-* Apache Tomcat v 9.0 (No need to install Tomcat if build and run is done using Spring Boot Maven plugin in eclipse)
+* Eclipse IDE for Enterprise Java Developers - Version: 2020-12 (4.18.0) (Optional - Required only if you are building/deploying using Eclipse)
 
 ## How to build and run this project 
-You can build and run this project using Eclipse or Maven.
+You can build and run this project using Maven or Eclipse.
 
 Please note: Apache Tomcat server runs on 8081 port as per the configuration in application.properties file. If 8081 port is already in use, port number can be modified in application.properties file (under /src/main/resources)
 
@@ -23,7 +22,20 @@ Follow the below steps to download the source code from the git repository.
 
 2. Simply download the source code as .zip file using "Download Zip" option in Github to a localfolder, say - "codechallengerepo"
 
-### How to build and run using Eclipse
+### How to build and run using Maven (Option 1)
+Spring Boot Maven plugin included in this maven project is used which has the ability to automatically deploy this web application in an embedded application server (Apache Tomcat). 
+1. Open command prompt in the folder where source code is downloaded (say folder "codechallengerepo").
+2. Enter below command to clean the project; package and build a WAR file
+	`mvn clean package`
+	This command will also execute all the test classes running all test cases. Please note all the successfully run test cases.
+3. Enter below command to deploy the war file on embedded Tomcat server. 
+	`java -jar target/codechallenge-1.0.0.war`
+	
+You can access the web API using below link ({integer} could be any integer between 0 to 3999)
+
+	http://localhost:8081/romannumeral?query={integer}
+	
+### How to build and run using Eclipse (Option 2 - Alternate to Option 1)
 ***You can import this maven project into eclipse and run the project using Run configuration for Spring Boot. Spring Boot Maven plugin is used which has the ability to automatically deploy this web application in an embedded application server (Apache Tomcat). 
 Follow below steps to run the application on embedded Tomcat server provided by Spring boot.
 
@@ -36,39 +48,16 @@ Follow below steps to run the application on embedded Tomcat server provided by 
 7. Select project "codechallenge" and select Run -> Run Configurations
 8. Select Spring Boot App and click on "New launch configuration" icon to create a new run configuration.
 9. Select project "codechallenge" and main class "algorithm.core.CodeChallengeApplication". 
-10. Retain other configurations as default in "Spring boot" tab, "Arguements" tab.
+10. Retain other configurations as default in "Spring boot" tab, "Arguments" tab.
 11. Make sure Java 1.8 JRE is selected in JRE tab.
 12. Add source folder "codechallenge" in Source tab.
 13. Apply changes and run. CodeChallenge web application should be started successfully and Tomcat server should be started on 8081 port.
  
-You can access the web API using below link
+You can access the web API using below link ({integer} could be any integer between 0 to 3999)
 
 	http://localhost:8081/romannumeral?query={integer}
- where {integer} could be any integer between 0 to 3999
- 
- For ex: http://localhost:8081/romannumeral?query=9
-
-
-### How to build and run using Maven
-1. Open command prompt in the folder where source code is downloaded (say folder "codechallengerepo").
-4. Enter below command to clean the project
-	`mvn clean`
-5. Enter below command to build this project to generate a deployable WAR file
-	`mvn install`
-	**Executing Tests**
-	Test class should run executing all the unit test cases. Please note the successful tests run and no failures.
-6. Project should build successfully with no errors. 
-	Check the target/ folder which is .m2 repository on local. It should now contain the deployable WAR file **codechallenge-1.0.0.war**
-	
-***You could deploy this war file on Apache Tomcat installed on local server.
-
 
 ## Engineering Methodology
-
-Tried to follow SOLID design principles for this web API development
-*Single Responsibility Principle – a module should only have one reason to change: Service implementation will have only 1 reason to change, i.e, it only does conversion of a number to a Roman numeral.
-*Open/Closed Principle - Open for extension, closed for modifications: This application could be extended to include any other algorithms (packaging structure is open for extension)
-*Interface Segregation Principle – don’t depend on what you don’t need
 
 Combination of Test driven development (TDD) and Spiral development methodologies are used for this web API development.
 
@@ -93,6 +82,11 @@ Each trip around the spiral traverses four basic quadrants:
 3. Develop and verify deliverables from the iteration
 4. Plan the next iteration.
 
+Attempted to adhere to SOLID design principles for this web API development.
+* Single Responsibility Principle – a module should only have one reason to change: Service implementation will have only 1 reason to change, i.e, it only does conversion of a number to a Roman numeral.
+* Open/Closed Principle - Open for extension, closed for modifications: This application could be extended to include any other algorithms (packaging structure is open for extension)
+* Interface Segregation Principle – Don’t depend on what you don’t need
+
 ## Testing Methodology
 
 Junit for unit testing the service implementation for RomanNumeralsService (that includes a method to convert a number to a Roman numeral).
@@ -111,13 +105,12 @@ Below steps are followed to perform TDD test:
 Packaging: War
 
 **Packaging structure**
-*algorithm.core: Contains the Servlet initializer for Spring Boot framework and Spring Boot application with the main method
-*algorithm.core.controller: Includes the controller class for using RomanNumeralsService to implement API to convert an integer to a Roman numeral
-*algorithm.core.service: Includes the service interface to include methods for invoking web API
-*algorithm.core.service.impl: Includes the service implementation for RomanNumeralsService
-*algorithm.core.util: Includes the utility class that provides a TreeMap mapping of values to Roman numeral symbols; Also includes Constants class.
-*algorithm.core.test: Includes test classes for unit testing service implementation.
-
+* algorithm.core: Contains the Servlet initializer for Spring Boot framework and Spring Boot application with the main method
+* algorithm.core.controller: Includes the controller class for using RomanNumeralsService to implement API to convert an integer to a Roman numeral
+* algorithm.core.service: Includes the service interface to include methods for invoking web API
+* algorithm.core.service.impl: Includes the service implementation for RomanNumeralsService
+* algorithm.core.util: Includes the utility class that provides a TreeMap mapping of values to Roman numeral symbols; Also includes Constants class.
+* algorithm.core.test: Includes test classes for unit testing service implementation.
 
 ## Dependency Attribution
 
@@ -129,7 +122,6 @@ This web application uses below dependencies:
 4. Spring Boot Maven Plugin for build, test, packaging code
 	
 ## Metrics 
-
 Spring Boot Actuator provides dependency management and auto-configuration for Micrometer, an application metrics facade that supports numerous monitoring systems like JMX, New Relic etc.
 
 Actuator endpoints let you monitor and interact with your application. Spring Boot includes a number of built-in endpoints. Each individual endpoint can be enabled or disabled and exposed (made remotely accessible) over HTTP or JMX. An endpoint is considered to be available when it is both enabled and exposed.

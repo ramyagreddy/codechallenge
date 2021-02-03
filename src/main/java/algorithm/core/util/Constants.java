@@ -6,7 +6,9 @@ package algorithm.core.util;
  */
 public final class Constants {
 
-	private Constants() {}
+	private Constants() {
+	}
+
 	public static final String EMPTY = "";
 	public static final String WARNING_INPUT_GREATER_THAN_3999_LESS_THAN_ZERO = "Sorry, we cannot convert numbers lesser than 0 or greater than 3999 to Roman Numerals";
 	public static final String INPUT_ZERO = "Sorry, there is no representation for zero in Roman numerals. Please try another integer lesser than or equal to 3999";
