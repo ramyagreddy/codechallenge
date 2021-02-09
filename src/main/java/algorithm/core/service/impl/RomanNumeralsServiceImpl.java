@@ -27,8 +27,8 @@ public class RomanNumeralsServiceImpl implements RomanNumeralsService {
 	public String convertNumberToRomanNumeral(int input) throws NullPointerException, NumberFormatException {
 		LOGGER.finest(Constants.INPUT + input);
 		String output = null;
-		output = ifInputIsZero(input, output);
-		output = ifInputIsInvalidInteger(input, output);
+		ifInputIsZero(input);
+		ifInputIsInvalidInteger(input);
 		output = ifInputIsValidInteger(input, output);
 		LOGGER.finest(Constants.OUTPUT + output);
 		return output;
@@ -42,12 +42,11 @@ public class RomanNumeralsServiceImpl implements RomanNumeralsService {
 	 * @return Returns "No Roman numeral representation for 0" string if 0 is passed
 	 *         as input; otherwise returns null
 	 */
-	private String ifInputIsZero(int input, String output) {
+	private void ifInputIsZero(int input) {
 		if (input == 0) {
-			LOGGER.log(Level.INFO, Constants.INPUT_ZERO);
-			output = Constants.INPUT_ZERO;
+			LOGGER.log(Level.SEVERE, Constants.INPUT_ZERO);
+			throw new IllegalArgumentException(Constants.INPUT_ZERO);
 		}
-		return output;
 	}
 
 	/**
@@ -59,12 +58,14 @@ public class RomanNumeralsServiceImpl implements RomanNumeralsService {
 	 * @return Returns "No Roman numeral representation" string if integer less than
 	 *         0 or greater than 3999 is passed as input; otherwise returns null
 	 */
-	private String ifInputIsInvalidInteger(int input, String output) {
-		if (input > 3999 || input < 0) {
-			LOGGER.log(Level.WARNING, Constants.WARNING_INPUT_GREATER_THAN_3999_LESS_THAN_ZERO);
-			output = Constants.WARNING_INPUT_GREATER_THAN_3999_LESS_THAN_ZERO;
+	private void ifInputIsInvalidInteger(int input) {
+		if (input > 3999) {
+			LOGGER.log(Level.SEVERE, Constants.WARNING_INPUT_GREATER_THAN_3999);
+			throw new IllegalArgumentException(Constants.WARNING_INPUT_GREATER_THAN_3999);
+		} else if (input < 0) {
+			LOGGER.log(Level.SEVERE, Constants.WARNING_INPUT_LESS_THAN_ZERO);
+			throw new IllegalArgumentException(Constants.WARNING_INPUT_LESS_THAN_ZERO);
 		}
-		return output;
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class RomanNumeralsServiceImpl implements RomanNumeralsService {
 	 */
 	private String ifInputIsValidInteger(int input, String output) {
 		if (input > 0 && input <= 3999) {
-			output = Constants.ROMAN_NUMERAL_IS + convertIntegerToRomanNumeral(input);
+			output = convertIntegerToRomanNumeral(input);
 		}
 		return output;
 	}

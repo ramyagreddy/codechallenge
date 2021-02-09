@@ -94,7 +94,7 @@ Attempted to adhere to SOLID design principles for this web API development.
 
 ## Testing Methodology
 
-Junit for unit testing the service implementation for RomanNumeralsService (that includes a method to convert a number to a Roman numeral).
+***Junit for unit testing the service implementation for RomanNumeralsService (that includes a method to convert a number to a Roman numeral).
 Junit test cases are written to test all edge cases, valid and invalid inputs.
 
 Below steps are followed to perform TDD test:
@@ -103,6 +103,9 @@ Below steps are followed to perform TDD test:
 3. Write some code.
 4. Run tests and Refactor code.
 5. Repeat.
+
+***To test Rest Controller class - RomanNumeralsController, the full Spring application context is started but without the server. Tests are narrowed to only the web layer by using @WebMvcTest
+***To Test Spring Boot application - CodeChallengeApplication - test if Spring boot application context is creating Controller successfully. 
 
 
 ## Packaging Layout
@@ -141,6 +144,21 @@ You can drill down to view information about a particular meter by providing its
 
 You can also add any number of tag=KEY:VALUE query parameters to the end of the URL to dimensionally drill down on a meter, e.g. /actuator/metrics/jvm.memory.max?tag=area:nonheap
 
+You can use below link to get metrics on HTTP server requests:
+
+	http://localhost:8081/actuator/metrics/http.server.requests
+This provides all endPoints which are executed with their count, exception, outcome, status, total time, etc.
+
+If you want to check metric for a particular tag, Actuator lets you do this by using tag query 
+	
+	http://localhost:8081/actuator/metrics/http.server.requests?tag=status:200
+	
+**Web API Metrics**
+You can check metrics for our web API using the below:
+
+	http://localhost:8081/actuator/metrics/http.server.requests?tag=uri:/romannumeral
+	
+
 ** Supported Metrics**
 Spring Boot registers the following core metrics when applicable:
 
@@ -155,6 +173,12 @@ Spring Boot registers the following core metrics when applicable:
 * Uptime metrics: report a gauge for uptime and a fixed gauge representing the application’s absolute start time
 * Tomcat metrics
 * Spring Integration metrics
+
+**Custom Metrics**
+Custom metrics are defined using a Scheduler class which periodically runs the included schedulingTask method. To be able to send custom metrics, MeterRegistry from the Micrometer library is imported and injected into our class CodeChallengeMetricService.
+If we run the application, we can see that custom metrics are exposed via the below endpoint
+
+	http://localhost:8081/actuator/prometheus
 
 
 ## Monitoring
@@ -174,6 +198,14 @@ Spring Boot Actuator auto-configures all enabled endpoints to be exposed over HT
 You can access health endpoint at below link which shows application health information.
 
 	http://localhost:8081/actuator/health 
+	
+**Monitoring support for Prometheus**
+
+If you start the application and access the below endpoint, you will see a ton of metrics already exported by Actuator. By accessing the below endpoint, you can already see Micrometer's and Prometheus' dimensional approach in action
+
+	http://localhost:8081/actuator/prometheus
+	
+The metric's name is logback_events_total but there is a tag (or dimension) called level to help you drill down, and examine exactly how many events happened on each logging level.
 
 # Logging
 
